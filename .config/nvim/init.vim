@@ -34,7 +34,7 @@ Plug 'neomake/neomake'
 Plug 'valloric/YouCompleteMe'
 
 " syntax checking
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
  
 " making tab usable with snippets and ycm
 Plug 'ervandew/supertab'
@@ -91,6 +91,8 @@ Plug 'idanarye/vim-vebugger'
 " javaautocompleter
 Plug 'artur-shaik/vim-javacomplete2'
 
+" draw ascii boxes and diagrams
+Plug 'gyim/vim-boxdraw'
 
 " Initialize plugin system
 call plug#end()
@@ -250,3 +252,4 @@ let g:EclimCompletionMethod = 'omnifunc'
 set undofile
 set undodir=~/.vim/undo
 nnoremap <C-t> :MundoToggle<CR>
+let mapleader = " "
