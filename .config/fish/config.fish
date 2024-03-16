@@ -8,6 +8,6 @@ alias lzy=lazygit
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 
-function vcode
+function code
   open -a "Visual Studio Code.app" $argv
 end

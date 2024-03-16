@@ -95,23 +95,76 @@ plugins = {
       end, { desc = "Format file or range (in visual mode)" })
     end,
   },
-  { "mfussenegger/nvim-dap" },
+  { "sainnhe/edge" },
   {
-    "microsoft/vscode-js-debug",
-    opt = true,
-    run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "mxsdev/nvim-dap-vscode-js",
+      {
+        "microsoft/vscode-js-debug",
+        version = "1.x",
+        build = "npm i && npm run compile vsDebugServerBundle && mv dist out"
+      },
+    },
+    keys = {
+      { "<leader>d", function() require('dap').toggle_breakpoint() end },
+      { "<leader>c", function() require('dap').continue() end },
+      { "<C-'>",     function() require('dap').step_over() end },
+      { "<C-;>",     function() require('dap').step_into() end },
+      { "<C-:>",     function() require('dap').step_out() end },
+    },
+    config = function()
+      require("dap-vscode-js").setup({
+        debugger_path = vim.fn.stdpath('data') .. "/lazy/vscode-js-debug",
+        adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }
+      })
+      for _, language in ipairs({ "typescript", "javascript" }) do
+        require("dap").configurations[language] = {
+          {
+            type = "pwa-node",
+            request = "attach",
+            processId = require 'dap.utils'.pick_process,
+            name = "Attach debugger to existing `node --inspect` process",
+            sourceMaps = true,
+            resolveSourceMapLocations = {
+              "${workspaceFolder}/src",
+              "!**/node_modules/**"
+            },
+            cwd = "${workspaceFolder}/src",
+            -- skip files in node_modules for debugging
+            skipFiles = { "${workspaceFolder}/node_modules/**/*.js" },
+          },
+          {
+            type = "pwa-chrome",
+            name = "Launch Chrome to debug client",
+            request = "launch",
+            url = "http://localhost:4200",
+            sourceMaps = true,
+            protocol = "inspector",
+            port = 9222,
+            webRoot = "${workspaceFolder}",
+            skipFiles = { "**/node_modules/**/*", "**/@vite/*", "**/src/cient/*", "**/src/*" }
+          },
+          -- only if language is javascript, offer this debug action
+          language == "javascript" and {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file in new node process",
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+          } or nil
+        }
+      end
+      require("dapui").setup()
+      local dap, dapui = require("dap"), require("dapui")
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open({ reset = true })
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+      dap.listeners.before.event_exited["dapui_config"] = dapui.close
+    end
   },
-  {
-    "mxsdev/nvim-dap-vscode-js",
-    dependencies = { "mfussenegger/nvim-dap" },
-    setup = {
-      -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
-      debugger_path = vim.fn.stdpath('data') .. "/lazy/vscode-js-debug",
-      -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
-      adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
-      -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
-      -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
-      -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
-    }
-  },
+  { "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } },
+  { "NLKNguyen/papercolor-theme" }
 }
