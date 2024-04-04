@@ -31,5 +31,6 @@
   "tokyonight.nvim": { "branch": "main", "commit": "610179f7f12db3d08540b6cc61434db2eaecbcff" },
   "undotree": { "branch": "master", "commit": "9dbbf3b7d19dda0d22ceca461818e4739ad8154d" },
   "vim-fugitive": { "branch": "master", "commit": "41beedabc7e948c787ea5696e04c3544c3674e23" },
+  "vim-tabby": { "branch": "main", "commit": "afd76df166ed0f223ede1071e0cfde8075cc4a24" },
   "vscode-js-debug": { "branch": "main", "commit": "19cd30297dc05b7a7fa9d1d02a8e9dfc1749362e" }
 }

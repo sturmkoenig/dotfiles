@@ -20,3 +20,4 @@ vim.keymap.set("n", "<leader>q", ":bp<bar>sp<bar>bn<bar>bd<CR>")
 vim.keymap.set("n", "<leader>r", ":NvimTreeFindFile<CR>")
 vim.keymap.set("n", "<leader>d", ":lua vim.lsp.buf.hover()<CR>")
 vim.keymap.set("n", "<leader>s", ":lua vim.lsp.buf.code_action()<CR>")
+vim.g.tabby_keybinding_accept = '<Tab>'

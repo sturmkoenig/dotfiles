@@ -166,5 +166,11 @@ plugins = {
     end
   },
   { "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } },
-  { "NLKNguyen/papercolor-theme" }
+  { "NLKNguyen/papercolor-theme" },
+  --- Example Lazy plugin specification
+
+  --- Add config here. Example config:
+
+  { 'TabbyML/vim-tabby' }
+
 }
