@@ -10,6 +10,7 @@ alias lzycfg='lzy --git-dir $HOME/.cfg/ --work-tree $HOME'
 alias vcfg='v ~/.config/nvim/'
 alias fishcfg='v ~/.config/fish/config.fish'
 
+set -gx EDITOR nvim
 
 function code
   open -a "Visual Studio Code.app" $argv

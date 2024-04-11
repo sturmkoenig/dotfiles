@@ -24,11 +24,6 @@ vim.opt.colorcolumn = "80"
 
 
 vim.opt.termguicolors = true
-vim.cmd 'colorscheme gruvbox'
+vim.cmd 'colorscheme catppuccin'
 
 theme = vim.fn.system('defaults read -g AppleInterfaceStyle')
-if string.find(theme, 'Dark') then
-  vim.cmd 'colorscheme gruvbox'
-else
-  vim.cmd 'colorscheme tokyonight-day'
-end

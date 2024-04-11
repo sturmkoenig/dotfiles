@@ -22,6 +22,7 @@ lsp_zero.format_on_save({
   servers = {
     ['prettierd'] = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
     ['rust_analyzer'] = { 'rust' },
+    ['gopls'] = { 'go' }
   }
 })
 
