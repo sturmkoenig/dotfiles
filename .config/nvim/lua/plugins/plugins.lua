@@ -99,22 +99,24 @@ plugins = {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
-      "rcarriga/nvim-dap-ui",
+      { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
       "mxsdev/nvim-dap-vscode-js",
       {
         "microsoft/vscode-js-debug",
         version = "1.x",
         build = "npm i && npm run compile vsDebugServerBundle && mv dist out"
       },
+      { "leoluz/nvim-dap-go" }
     },
     keys = {
-      { "<leader>d", function() require('dap').toggle_breakpoint() end },
-      { "<leader>c", function() require('dap').continue() end },
-      { "<C-'>",     function() require('dap').step_over() end },
-      { "<C-;>",     function() require('dap').step_into() end },
-      { "<C-:>",     function() require('dap').step_out() end },
+      { "<leader>db", function() require('dap').toggle_breakpoint() end },
+      { "<leader>dc", function() require('dap').continue() end },
+      { "<C-[>",      function() require('dap').step_over() end },
+      { "<C-]>",      function() require('dap').step_into() end },
+      { "<C-_>",      function() require('dap').step_out() end },
     },
     config = function()
+      require("dap-go").setup()
       require("dap-vscode-js").setup({
         debugger_path = vim.fn.stdpath('data') .. "/lazy/vscode-js-debug",
         adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }
@@ -188,7 +190,7 @@ plugins = {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",    name = "catppuccin", priority = 1000 },
   {
     "ray-x/go.nvim",
     dependencies = { -- optional packages
@@ -202,5 +204,18 @@ plugins = {
     event = { "CmdlineEnter" },
     ft = { "go", 'gomod' },
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-  }
+  },
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+  },
+  {
+    "nvim-neorg/neorg",
+    dependencies = { "luarocks.nvim" },
+    lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    version = "*", -- Pin Neorg to the latest stable release
+    config = true,
+  },
+  { "codethread/qmk.nvim" }
 }

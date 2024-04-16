@@ -1,0 +1,4 @@
+package foreign-env
+package https://github.com/PatrickF1/fzf.fish
+package nvm
+theme default
