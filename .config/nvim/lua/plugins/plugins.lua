@@ -217,5 +217,6 @@ plugins = {
     version = "*", -- Pin Neorg to the latest stable release
     config = true,
   },
-  { "codethread/qmk.nvim" }
+  { "codethread/qmk.nvim" },
+  { "github/copilot.vim" },
 }
