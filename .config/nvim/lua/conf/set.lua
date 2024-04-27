@@ -18,15 +18,12 @@ vim.opt.incsearch = true
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
-
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "80"
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 
+-- set colorscheme
 vim.opt.termguicolors = true
 vim.cmd 'colorscheme catppuccin'
-
-theme = vim.fn.system('defaults read -g AppleInterfaceStyle')
