@@ -40,7 +40,6 @@ plugins = {
   -- lsp configuration
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
-
   { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
   { 'neovim/nvim-lspconfig' },
   { 'hrsh7th/cmp-nvim-lsp' },
@@ -116,13 +115,14 @@ plugins = {
       { "<C-_>",      function() require('dap').step_out() end },
     },
     config = function()
+      local dap = require("dap")
       require("dap-go").setup()
       require("dap-vscode-js").setup({
         debugger_path = vim.fn.stdpath('data') .. "/lazy/vscode-js-debug",
         adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }
       })
       for _, language in ipairs({ "typescript", "javascript" }) do
-        require("dap").configurations[language] = {
+        dap.configurations[language] = {
           {
             type = "pwa-node",
             request = "attach",
@@ -159,7 +159,7 @@ plugins = {
         }
       end
       require("dapui").setup()
-      local dap, dapui = require("dap"), require("dapui")
+      local dapui = require("dapui")
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({ reset = true })
       end
@@ -218,5 +218,43 @@ plugins = {
     config = true,
   },
   { "codethread/qmk.nvim" },
+
   { "github/copilot.vim" },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^4', -- Recommended
+    lazy = false,   -- This plugin is already lazy
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap",
+      {
+        "lvimuser/lsp-inlayhints.nvim",
+        opts = {}
+      },
+    },
+    ft = { "rust" },
+    keys = {
+      { "<leader>vdb", function() require('rustaceanvim').RustLsp('codeAction') end },
+    },
+    config = function()
+      -- keymaps
+      vim.keymap.set("n", "<leader>vrdb", ":RustLsp debuggables<CR>")
+      vim.g.rustaceanvim = {
+        inlay_hints = {
+          highlight = "NonText",
+        },
+        tools = {
+          hover_actions = {
+            auto_focus = true,
+          },
+        },
+        server = {
+          on_attach = function(client, bufnr)
+            require("lsp-inlayhints").on_attach(client, bufnr)
+          end
+        }
+      }
+    end
+  },
+  { "tpope/vim-commentary" }
 }

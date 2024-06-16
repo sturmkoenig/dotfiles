@@ -27,3 +27,5 @@ vim.opt.smartcase = true
 -- set colorscheme
 vim.opt.termguicolors = true
 vim.cmd 'colorscheme catppuccin'
+vim.opt.number = true
+vim.opt.relativenumber = true

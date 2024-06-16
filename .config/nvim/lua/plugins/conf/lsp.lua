@@ -22,12 +22,14 @@ lsp_zero.format_on_save({
   },
   servers = {
     ['prettierd'] = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
-    ['rust_analyzer'] = { 'rust' },
     ['gopls'] = { 'go' }
   }
 })
 
 require('mason').setup({})
+require('mason-lspconfig').setup_handlers {
+  ['rust_analyzer'] = function() end,
+}
 require('mason-lspconfig').setup({
   ensure_installed = { 'tsserver', 'rust_analyzer' },
   handlers = {
