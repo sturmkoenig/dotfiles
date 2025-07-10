@@ -1,0 +1,152 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
+
+set ideajoin
+set relativenumber
+set surround
+" Global settings
+set number
+set mouse=a
+set showmode
+set showmatch
+set ignorecase
+set quickscope
+set easymotion
+
+set scrolloff=8
+set history=1000
+
+" ideaVim settings
+set ideajoin
+set smartcase
+set incsearch
+set gdefault
+set hlsearch
+set number
+set relativenumber
+
+set idearefactormode=keep
+
+" Plugins
+set sneak
+set highlightedyank
+set which-key " needs a plugin of the same name to work
+set notimeout
+"  set timeoutlen=5000
+set surround
+set NERDTree
+let NERDTreeMapActivateNode = 'l'
+let NERDTreeMapJumpParent='h'
+
+" ******** key bindings **********
+map <space> <leader>
+
+" better HJKL
+map H ^
+map L $
+
+" split handling S
+let g:WhichKeyDesc_split = "<leader>s Split"
+nmap <leader>sl <Action>(MoveTabRight)
+nmap <leader>sj <Action>(MoveTabDown)
+nmap <leader>su <Action>(Unsplit)
+nmap <leader>sx <Action>(HideAllWindows)<Action>(CloseAllNotifications):noh<Enter>
+nmap <leader>sa 0<Action>(UnsplitAll)<Action>(CloseAllNotifications)
+nmap <leader>sc <Action>(CloseAllEditorsButActive)
+nmap <leader>sX 0<Action>(UnsplitAll)<Action>(CloseAllEditorsButActive)<Action>(HideAllWindows)<Action>(CloseAllNotifications):noh<Enter>
+
+" git G
+let g:WhichKeyDesc_git = "<leader>g Git"
+nmap <leader>gp <Action>(Vcs.UpdateProject)
+nmap <leader>gf <Action>(Git.Fetch)
+nmap <leader>gb <Action>(Git.Branches)
+nmap <leader>gn <Action>(GitNewBranchAction)
+nmap <leader>gs <Action>(Git.Stash)
+nmap <leader>gu <Action>(Git.Unstash)
+nmap <leader>gb <Action>(Annotate)
+map <leader>gh <Action>(Vcs.ShowHistoryForBlock)
+
+" bookmarks B
+let g:WhichKeyDesc_bookmarks = "<leader>b Breakpoints/Bookmarks"
+map <leader>bt <Action>(ToggleLineBreakpoint)
+map <leader>bT <Action>(Debugger.RemoveAllBreakpoints)
+map <leader>bb <Action>(ToggleBookmark)
+nmap <leader>bv <Action>(ViewBreakpoints)
+
+" search F
+let g:WhichKeyDesc_find = "<leader>f Find"
+nmap <leader>ff <Action>(GotoFile)
+nmap <leader>fs <Action>(GotoSymbol)
+nmap <leader>fa <Action>(GotoAction)
+nmap <leader>fc <Action>(GotoClass)
+nmap <leader>fr <Action>(RecentFiles)
+nmap <leader>fn <Action>(GotoNextError)
+nmap <leader>fu <Action>(FindUsages)
+
+" refactor R
+let g:WhichKeyDesc_refactor = "<leader>r Refactor"
+map <leader>rr <Action>(ShowIntentionActions)
+map <leader>rn <Action>(RenameElement)
+map <leader>rf <Action>(FindUsages)
+map <leader>rw <Action>(SurroundWith)
+map <leader>rv <Action>(IntroduceVariable)
+map <leader>rc <Action>(IntroduceConstant)
+map <leader>rp <Action>(IntroduceParameter)
+map <leader>ro <Action>(OptimizeImports)
+map <leader>rs <Action>(ChangeSignature)
+map <leader>ri <Action>(Inline)
+map <leader>ru <Action>(ExtractFunction)
+map <leader>rm <Action>(ExtractMethod)
+map <leader>rt <Action>(ReformatCode)
+
+" hierarchy
+let g:WhichKeyDesc_hierarchy = "<leader>h Hierarchy"
+nmap <leader>hc <Action>(CallHierarchy)
+nmap <leader>hm <Action>(MethodHierarchy)
+nmap <leader>ht <Action>(TypeHierarchy)
+map <leader>hs <Action>(LocalHistory.ShowSelectionHistory)
+
+" open acitons O
+let g:WhichKeyDesc_open = "<leader>o Open"
+nmap <leader>op <Action>($LRU)
+nmap <leader>os <Action>(NewScratchFile)
+nmap <leader>og <Action>(GitLab.Merge.Request.Show.List)
+nmap <leader>ot <Action>(GotoTest)
+
+
+" test actions T
+let g:WhichKeyDesc_test = "<leader>t Test"
+nmap <leader>tr <Action>(RunClass)
+nmap <leader>td <Action>(DebugClass)
+
+" vim meta actions V
+let g:WhichKeyDesc_vim = "<leader>v Vim"
+nmap <leader>vf <Action>(VimFindActionIdAction)
+nnoremap <leader>vr :action IdeaVim.ReloadVimRc.reload<CR>
+nnoremap <leader>vl :set relativenumber!<CR>
+
+" vim easymotion actions
+let g:WhichKeyDesc_vim = "<leader><leader>"
+nnoremap <leader><leader>f <Plug>(easymotion-f)
+nnoremap <leader><leader>F <Plug>(easymotion-f)
+
+" collapse/expand
+nmap .. <Action>(ExpandCollapseToggleAction)
+nmap .a <Action>(CollapseAllRegions)
+nmap .A <Action>(ExpandAllRegions)
+nmap .r <Action>(ExpandRegionRecursively)

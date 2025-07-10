@@ -40,6 +40,14 @@ require('mason-lspconfig').setup({
     end,
   }
 })
+require('lspconfig').volar.setup {
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+  init_options = {
+    typescript = {
+      serverPath = '/usr/local/lib/node_modules/typescript/lib/tsserverlibrary.js',
+    },
+  },
+}
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }

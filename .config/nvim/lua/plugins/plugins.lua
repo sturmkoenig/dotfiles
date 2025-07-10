@@ -256,5 +256,26 @@ plugins = {
       }
     end
   },
-  { "tpope/vim-commentary" }
+  { "tpope/vim-commentary" },
+  {
+    "nathom/filetype.nvim",
+    config = function()
+      require("filetype").setup {
+        overrides = {
+          extensions = {
+            tf = "terraform",
+            tfvars = "terraform",
+            tfstate = "json",
+          },
+        },
+      }
+    end,
+  },
+  { 'm-demare/attempt.nvim' },
+  {
+    'mrcjkb/haskell-tools.nvim',
+    version = '^3', -- Recommended
+    lazy = false,   -- This plugin is already lazy
+  }
+
 }
